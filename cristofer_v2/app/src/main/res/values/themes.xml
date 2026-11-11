@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Используйте AppCompat тему в качестве родителя -->
+    <style name="Theme.RukaPomochi" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Ваши настройки стиля -->
+    </style>
+</resources>

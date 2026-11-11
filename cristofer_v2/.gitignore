@@ -1,0 +1,21 @@
+﻿# Build output
+build/
+app/build/
+.gradle/
+local.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+.kotlin/
+
+# CMake / NDK intermediates
+app/.cxx/
+
+# Old manual checkpoints
+_checkpoint_*/
+
+# Keystore (never commit)
+*.jks
+*.keystore

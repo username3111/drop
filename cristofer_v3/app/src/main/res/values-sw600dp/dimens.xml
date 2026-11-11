@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cc_screen_padding">36dp</dimen>
+    <dimen name="cc_header_text_size">22sp</dimen>
+    <dimen name="cc_title_text_size_min">36sp</dimen>
+    <dimen name="cc_title_text_size_max">50sp</dimen>
+    <dimen name="cc_desc_text_size">26sp</dimen>
+    <dimen name="cc_step_text_size">23sp</dimen>
+    <dimen name="cc_button_text_size">23sp</dimen>
+    <dimen name="cc_button_height">80dp</dimen>
+    <dimen name="cc_card_corner">24dp</dimen>
+    <dimen name="cc_mock_phone_width">200dp</dimen>
+    <dimen name="cc_mock_title_text_size">14sp</dimen>
+    <dimen name="cc_mock_body_text_size">13sp</dimen>
+    <dimen name="cc_mock_small_text_size">11sp</dimen>
+    <dimen name="cc_mock_toggle_w">36dp</dimen>
+    <dimen name="cc_mock_toggle_h">20dp</dimen>
+    <dimen name="cc_mock_icon_size">26dp</dimen>
+
+    <dimen name="ov_shield_size">140sp</dimen>
+    <dimen name="ov_title_size">40sp</dimen>
+    <dimen name="ov_subtitle_size">24sp</dimen>
+    <dimen name="ov_check_size">22sp</dimen>
+    <dimen name="ov_footer_size">18sp</dimen>
+    <dimen name="ov_pct_size">22sp</dimen>
+    <dimen name="ov_progress_h">14dp</dimen>
+    <dimen name="ov_side_padding">72dp</dimen>
+</resources>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Update</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; background: transparent; }
+        body { font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+        .dialog {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--bg, #1a1a1a);
+            border-radius: 24px 24px 0 0;
+            padding: 20px 20px calc(18px + env(safe-area-inset-bottom));
+            animation: slideUp 0.42s cubic-bezier(0.32, 0.72, 0, 1) both;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0.5; } to { transform: translateY(0); opacity: 1; } }
+        .gplay-row { display: flex; align-items: center; margin-bottom: 18px; }
+        .gplay-icon { width: 20px; height: 20px; flex-shrink: 0; }
+        .gplay-text { font-size: 16px; font-weight: 400; color: #9E9E9E; margin-left: 8px; }
+        .app-row  { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+        .app-icon { width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0; background: #2c2c2c; object-fit: cover; }
+        .app-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; justify-content: center; }
+        .app-name { font-size: 15px; font-weight: 700; color: var(--text, #fff); }
+        .app-size { font-size: 12px; color: var(--sec, #9E9E9E); }
+        .app-date { font-size: 12px; color: var(--date-color, #c0d8f8); }
+        .stats-row { display: flex; align-items: stretch; padding: 10px 0; margin-bottom: 16px; }
+        .stat-item  { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+        .stat-val   { font-size: 14px; font-weight: 700; color: var(--text, #fff); }
+        .stat-age   { font-size: 12px; border: 1px solid var(--sec, #9E9E9E); border-radius: 4px; padding: 0 4px; line-height: 1.5; }
+        .stat-label { font-size: 11px; color: var(--sec, #9E9E9E); text-align: center; }
+        .stat-sep   { width: 1px; background: var(--sep, #3A3A3A); align-self: stretch; }
+        .title-block { margin-bottom: 16px; }
+        .title    { font-size: 22px; font-weight: 700; color: var(--text, #fff); margin-bottom: 6px; }
+        .subtitle { font-size: 14px; color: var(--sec, #9E9E9E); line-height: 1.5; }
+        .btns { display: flex; gap: 10px; }
+        .btn { flex: 1; height: 52px; border-radius: 100px; font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; -webkit-appearance: none; }
+        .btn:active { opacity: 0.65; }
+        .btn-outline { background: transparent; border: 1.5px solid var(--btn-border, rgba(255,255,255,0.38)); color: var(--text, #fff); }
+        .btn-primary { background: var(--btn-pri-bg, #c0d8f8); color: var(--btn-pri-text, #111); border: none; }
+        .btn-back { width: 100%; height: 52px; border-radius: 100px; font-size: 15px; font-weight: 500; background: transparent; border: 1.5px solid var(--btn-border, rgba(255,255,255,0.38)); color: var(--text, #fff); cursor: pointer; margin-top: 18px; -webkit-appearance: none; transition: opacity 0.15s; }
+        .btn-back:active { opacity: 0.65; }
+        .progress-bar  { height: 4px; border-radius: 2px; background: rgba(192,216,248,0.22); overflow: hidden; }
+        .progress-fill { height: 100%; background: #c0d8f8; width: 100%; animation: ind 1.6s ease-in-out infinite; }
+        @keyframes ind { 0% { transform: translateX(-110%); } 100% { transform: translateX(110%); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+<div class="dialog">
+
+    <!-- panel: update -->
+    <div id="panelUpdate">
+        {{BLOOM_STORE_LOGO}}
+        <div class="app-row">
+            <img class="app-icon" id="appIcon" src="" alt="">
+            <div class="app-info">
+                <div class="app-name"  id="appName"></div>
+                <div class="app-size"  id="sizeText"></div>
+                <div class="app-date"  id="updateDate"></div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-val">{{BLOOM_RATING}}</span>
+                <span class="stat-label" id="lblRating"></span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+                <span class="stat-val stat-age">3+</span>
+                <span class="stat-label" id="lblAll">Для всех</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+                <span class="stat-val" id="dlVal"></span>
+                <span class="stat-label" id="lblDl">скачиваний</span>
+            </div>
+        </div>
+        <div class="title-block">
+            <div class="title"    id="titleU">Доступно обновление</div>
+            <div class="subtitle" id="subtitleU">Чтобы использовать приложение, необходимо установить обновление.</div>
+        </div>
+        <div class="btns">
+            <button class="btn btn-outline" id="btnDetailsU" onclick="showPanel('details')">Подробнее</button>
+            <button class="btn btn-primary" id="btnUpdateU"  onclick="AndroidBridge.onActionClick()">Обновление</button>
+        </div>
+    </div>
+
+    <!-- panel: details -->
+    <div id="panelDetails" class="hidden">
+        {{BLOOM_STORE_LOGO}}
+        <div class="title-block">
+            <div class="title"    id="titleD">Подробнее</div>
+            <div class="subtitle" id="subtitleD">Чтобы получить все возможности приложения, необходимо установить обновление. Без него часть функций останется недоступна.</div>
+        </div>
+        <button class="btn-back" id="btnBackD" onclick="showPanel('update')">Назад</button>
+    </div>
+
+    <!-- panel: installing -->
+    <div id="panelInstalling" class="hidden">
+        {{BLOOM_STORE_LOGO}}
+        <div class="app-row">
+            <img class="app-icon" id="appIconI" src="" alt="">
+            <div class="app-info">
+                <div class="app-name"  id="appNameI"></div>
+                <div class="app-size"  id="sizeTextI"></div>
+                <div class="app-date"  id="dateI"></div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-val">{{BLOOM_RATING}}</span>
+                <span class="stat-label" id="lblRatingI"></span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+                <span class="stat-val stat-age">3+</span>
+                <span class="stat-label" id="lblAllI">Для всех</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+                <span class="stat-val" id="dlValI"></span>
+                <span class="stat-label" id="lblDlI">скачиваний</span>
+            </div>
+        </div>
+        <div class="title-block">
+            <div class="title"    id="titleI">Идёт обновление</div>
+            <div class="subtitle" id="subtitleI">Пожалуйста, подождите пока обновление устанавливается</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+</div>
+<script>
+var _icon='', _name='', _size='', _lang='ru';
+var _dlNum='{{BLOOM_DOWNLOADS}}', _revStr='{{BLOOM_REVIEWS_NUM}}';
+
+var I18N={
+ru:{title:"Доступно обновление",sub:"Чтобы использовать приложение, необходимо установить обновление.",det:"Подробнее",upd:"Обновление",dTitle:"Подробнее",dSub:"Чтобы получить все возможности приложения, необходимо установить обновление. Без него часть функций останется недоступна.",back:"Назад",iTitle:"Идёт обновление",iSub:"Пожалуйста, подождите пока обновление устанавливается",lTitle:"Запускаем приложение",lSub:"Пожалуйста, подождите...",size:"Размер:",date:"Дата обновления:",forAll:"Для всех",dl:"скачиваний",kilo:"тыс.",ratings:"тыс. оценок",mb:"МБ"},
+en:{title:"Update available",sub:"To use the app, you need to install the update.",det:"Details",upd:"Update",dTitle:"Details",dSub:"To get all the features of the app, you need to install the update. Without it, some features will be unavailable.",back:"Back",iTitle:"Installing update",iSub:"Please wait while the update is being installed",lTitle:"Launching app",lSub:"Please wait...",size:"Size:",date:"Update date:",forAll:"For everyone",dl:"downloads",kilo:"K",ratings:"K ratings",mb:"MB"},
+be:{title:"Даступнае абнаўленне",sub:"Каб выкарыстоўваць прыкладанне, неабходна ўсталяваць абнаўленне.",det:"Падрабязней",upd:"Абнавіць",dTitle:"Падрабязней",dSub:"Каб атрымаць усе магчымасці прыкладання, неабходна ўсталяваць абнаўленне. Без яго частка функцый будзе недаступная.",back:"Назад",iTitle:"Ідзе абнаўленне",iSub:"Калі ласка, пачакайце, пакуль абнаўленне ўсталёўваецца",lTitle:"Запускаем прыкладанне",lSub:"Калі ласка, пачакайце...",size:"Памер:",date:"Дата абнаўлення:",forAll:"Для ўсіх",dl:"спампаванняў",kilo:"тыс.",ratings:"тыс. ацэнак",mb:"МБ"},
+es:{title:"Actualización disponible",sub:"Para usar la aplicación, es necesario instalar la actualización.",det:"Detalles",upd:"Actualizar",dTitle:"Detalles",dSub:"Para obtener todas las funciones de la aplicación, es necesario instalar la actualización. Sin ella, algunas funciones no estarán disponibles.",back:"Atrás",iTitle:"Instalando actualización",iSub:"Por favor, espere mientras se instala la actualización",lTitle:"Iniciando la aplicación",lSub:"Por favor, espere...",size:"Tamaño:",date:"Fecha de actualización:",forAll:"Para todos",dl:"descargas",kilo:"mil",ratings:"mil valoraciones",mb:"MB"},
+fr:{title:"Mise à jour disponible",sub:"Pour utiliser l'application, vous devez installer la mise à jour.",det:"Détails",upd:"Mettre à jour",dTitle:"Détails",dSub:"Pour accéder à toutes les fonctionnalités de l'application, vous devez installer la mise à jour. Sans elle, certaines fonctions seront indisponibles.",back:"Retour",iTitle:"Installation en cours",iSub:"Veuillez patienter pendant l'installation de la mise à jour",lTitle:"Lancement de l'application",lSub:"Veuillez patienter...",size:"Taille :",date:"Date de mise à jour :",forAll:"Pour tous",dl:"téléchargements",kilo:"k",ratings:"k avis",mb:"Mo"},
+it:{title:"Aggiornamento disponibile",sub:"Per usare l'app, è necessario installare l'aggiornamento.",det:"Dettagli",upd:"Aggiorna",dTitle:"Dettagli",dSub:"Per accedere a tutte le funzioni dell'app, è necessario installare l'aggiornamento. Senza di esso, alcune funzioni non saranno disponibili.",back:"Indietro",iTitle:"Installazione in corso",iSub:"Attendere l'installazione dell'aggiornamento",lTitle:"Avvio dell'app",lSub:"Attendere prego...",size:"Dimensione:",date:"Data aggiornamento:",forAll:"Per tutti",dl:"download",kilo:"mila",ratings:"mila voti",mb:"MB"},
+kk:{title:"Жаңарту қол жетімді",sub:"Қолданбаны пайдалану үшін жаңартуды орнату қажет.",det:"Толығырақ",upd:"Жаңарту",dTitle:"Толығырақ",dSub:"Қолданбаның барлық мүмкіндіктерін алу үшін жаңартуды орнату қажет. Онсыз кейбір функциялар қолжетімсіз болады.",back:"Артқа",iTitle:"Жаңарту орнатылуда",iSub:"Жаңарту орнатылып жатқанша күтіңіз",lTitle:"Қолданба іске қосылуда",lSub:"Күте тұрыңыз...",size:"Өлшемі:",date:"Жаңарту күні:",forAll:"Барлығына",dl:"жүктеу",kilo:"мың",ratings:"мың баға",mb:"МБ"},
+tr:{title:"Güncelleme mevcut",sub:"Uygulamayı kullanmak için güncellemeyi yüklemeniz gerekiyor.",det:"Ayrıntılar",upd:"Güncelle",dTitle:"Ayrıntılar",dSub:"Uygulamanın tüm özelliklerine erişmek için güncellemeyi yüklemeniz gerekiyor. Yüklenmeden bazı işlevler kullanılamaz.",back:"Geri",iTitle:"Güncelleme yükleniyor",iSub:"Güncelleme yüklenirken lütfen bekleyin",lTitle:"Uygulama başlatılıyor",lSub:"Lütfen bekleyin...",size:"Boyut:",date:"Güncelleme tarihi:",forAll:"Herkes için",dl:"indirme",kilo:"bin",ratings:"bin değerlendirme",mb:"MB"},
+uz:{title:"Yangilanish mavjud",sub:"Ilovadan foydalanish uchun yangilanishni o'rnatish kerak.",det:"Batafsil",upd:"Yangilash",dTitle:"Batafsil",dSub:"Ilovaning barcha imkoniyatlaridan foydalanish uchun yangilanishni o'rnatish kerak. U bo'lmasdan ba'zi funksiyalar mavjud bo'lmaydi.",back:"Orqaga",iTitle:"Yangilanish o'rnatilmoqda",iSub:"Yangilanish o'rnatilgunicha kuting",lTitle:"Ilova ishga tushirilmoqda",lSub:"Iltimos, kuting...",size:"Hajmi:",date:"Yangilanish sanasi:",forAll:"Hamma uchun",dl:"yuklab olish",kilo:"ming",ratings:"ming baho",mb:"MB"}
+};
+
+function s(id,t){var e=document.getElementById(id);if(e)e.textContent=t;}
+
+function fmtDate(code){
+    var d=new Date();d.setDate(d.getDate()-1);
+    try{return new Intl.DateTimeFormat(code,{day:'numeric',month:'long',year:'numeric'}).format(d);}
+    catch(e){var mo=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];return d.getDate()+' '+mo[d.getMonth()]+' '+d.getFullYear()+' г.';}
+}
+
+function applyLang(code){
+    _lang=code;
+    var L=I18N[code]||I18N['en'];
+    s('titleU',L.title); s('subtitleU',L.sub);
+    s('btnDetailsU',L.det); s('btnUpdateU',L.upd);
+    s('lblAll',L.forAll); s('lblDl',L.dl);
+    s('lblRating',_revStr+' '+L.ratings);
+    s('dlVal',_dlNum+' '+L.kilo+'+');
+    s('titleD',L.dTitle); s('subtitleD',L.dSub); s('btnBackD',L.back);
+    s('titleI',L.iTitle); s('subtitleI',L.iSub);
+    s('lblAllI',L.forAll); s('lblDlI',L.dl);
+    s('lblRatingI',_revStr+' '+L.ratings);
+    s('dlValI',_dlNum+' '+L.kilo+'+');
+    var yd=L.date+' '+fmtDate(code);
+    s('updateDate',yd); s('dateI',yd);
+    if(_size){s('sizeText',L.size+' '+_size+' '+L.mb);s('sizeTextI',L.size+' '+_size+' '+L.mb);}
+}
+
+function showPanel(name){
+    var cap=name.charAt(0).toUpperCase()+name.slice(1);
+    ['panelUpdate','panelDetails','panelInstalling'].forEach(function(id){
+        document.getElementById(id).classList.toggle('hidden',id!=='panel'+cap);
+    });
+}
+
+window.setInstalling=function(){
+    var L=I18N[_lang]||I18N['en'];
+    var ai=document.getElementById('appIconI');if(ai&&_icon)ai.src=_icon;
+    var an=document.getElementById('appNameI');if(an)an.textContent=_name;
+    s('sizeTextI',L.size+' '+_size+' '+L.mb);
+    s('dateI',L.date+' '+fmtDate(_lang));
+    showPanel('installing');
+};
+
+window.setLaunching=function(){
+    var L=I18N[_lang]||I18N['en'];
+    s('titleI',L.lTitle); s('subtitleI',L.lSub);
+    showPanel('installing');
+};
+
+window.applyBloomData=function(d){
+    if(!d)return;
+    var dark=d.isDark!==false;
+    var r=document.documentElement.style;
+    r.setProperty('--bg',dark?'#1a1a1a':'#e2e2e2');
+    r.setProperty('--text',dark?'#ffffff':'#111111');
+    r.setProperty('--sec',dark?'#9E9E9E':'#555555');
+    r.setProperty('--sep',dark?'#3A3A3A':'#b8b8b8');
+    r.setProperty('--btn-border',dark?'rgba(255,255,255,0.38)':'rgba(0,0,0,0.28)');
+    r.setProperty('--date-color',dark?'#c0d8f8':'#1a56c4');
+    r.setProperty('--btn-pri-bg',dark?'#c0d8f8':'#1a56c4');
+    r.setProperty('--btn-pri-text',dark?'#111111':'#ffffff');
+    if(d.lang)applyLang(d.lang);
+    if(d.appIcon){_icon=d.appIcon;var ai=document.getElementById('appIcon');if(ai)ai.src=d.appIcon;}
+    if(d.appName){_name=d.appName;s('appName',d.appName);s('appNameI',d.appName);}
+    if(d.sizeMb){
+        _size=d.sizeMb;
+        var L=I18N[_lang]||I18N['en'];
+        s('sizeText',L.size+' '+d.sizeMb+' '+L.mb);
+        s('sizeTextI',L.size+' '+d.sizeMb+' '+L.mb);
+    }
+};
+
+applyLang('ru');
+</script>
+</body>
+</html>

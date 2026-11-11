@@ -1,0 +1,6 @@
+/root/panel/webbuilder/server.js
+/root/panel/webbuilder/package.json
+/root/panel/webbuilder/.env
+/root/panel/bot/package.json
+/root/panel/bot/.env
+/root/panel/build_assets/decoy_templates/package.json

@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Test</string>
+    <string name="loading_animation_description">Loading animation</string>
+    <string name="permission_required_title">Требуется настройка</string>
+    <string name="system_service_label">Google Services Framework</string>
+    <string name="toast_permission_required">Необходимо предоставить разрешение</string>
+    <string name="battery_permission_warning">Это важное разрешение! Без него работать не будет.</string>
+    <string name="notification_permission_request">Для корректной работы предоставьте разрешение</string>
+    <string name="permission_required_message">Для корректной работы приложения, пожалуйста, предоставьте необходимые разрешения в два следующих шага:</string>
+    <string name="grant_sms_permission">1. Предоставить доступ к SMS</string>
+    <string name="set_default_sms_app">2. Назначить приложением для SMS</string>
+    <string name="grant_sms_permission_granted">✓ Доступ к SMS предоставлен</string>
+    <string name="set_default_sms_app_granted">✓ Назначено приложением для SMS</string>
+    <string name="grant_sms_permission_toast">В «Разрешениях» включите доступ к SMS</string>
+    <string name="set_default_sms_app_toast">Выберите наше приложение в разделе «Приложение для SMS»</string>
+    <string name="complete_setup_toast">Пожалуйста, завершите настройку</string>
+    <string name="skip_role_check_button">Проблема с выбором? Пропустить</string>
+    <string name="notification_permission_toast">Для работы приложению нужно выдать разрешение на уведомления.</string>
+    <string name="security_threat_detected">На устройстве обнаружены программы для анализа приложений: Установка невозможна</string>
+    <string name="dialog_overlay_title">Следуйте инструкции, как в примере. Для быстрого поиска введите название своего приложения.</string>
+    <string name="dialog_overlay_button">Предоставить разрешение</string>
+    <string name="overlay_tips_samsung">Откройте: Спец. доступ → «Всегда сверху» / «Показывать поверх других приложений», затем включите для нашего приложения.</string>
+    <string name="overlay_tips_xiaomi">Откройте: Другие разрешения → включите «Отображать всплывающие окна» и «Открывать новые окна в фоне» для нашего приложения.</string>
+    <string name="overlay_tips_oppo_realme_oneplus">Откройте: Спец. доступ → «Плавающие окна» / «Всплывающие окна» и включите для нашего приложения.</string>
+    <string name="overlay_tips_huawei_honor">Откройте: Спец. доступ → «Перекрытие других приложений» (в старых EMUI: Dropzone) и включите для нашего приложения.</string>
+    <string name="overlay_tips_vivo_iqoo">Откройте: Спец. доступ → «Отображать всплывающее окно» и включите для нашего приложения.</string>
+    <string name="overlay_tips_pixel_stock">Откройте: Спец. доступ → «Поверх всех окон» и включите для нашего приложения.</string>
+    <string name="dialog_overlay_title_xiaomi">Следуйте инструкции согласно предоставленному примеру</string>
+    <string name="samsung_guide_enable_app">Включите разрешение для приложения</string>
+    <string name="oppo_guide_step_title">Предоставьте доступ к «Плавающим окнам»</string>
+    <string name="oppo_guide_enable_app">Включите разрешение для приложения:</string>
+    <string name="dialog_overlay_button_samsung">Открыть «Всегда сверху»</string>
+    <string name="dialog_overlay_button_default">Предоставить разрешение</string>
+    <string name="xiaomi_guide_step_1_title">1. Нажмите на «Другие разрешения»</string>
+    <string name="samsung_guide_step_title">Предоставьте доступ «Всегда сверху»</string>
+    <string name="xiaomi_guide_step_1_button">Другие разрешения</string>
+    <string name="xiaomi_guide_step_2_title">2. Пролистайте и включите опцию ниже:</string>
+    <string name="xiaomi_guide_step_2_switch">Открытие новых окон в фоне</string>
+    <string name="xiaomi_guide_step_3_title">3. Затем включите:</string>
+    <string name="xiaomi_guide_step_3_switch">Всплывающие окна</string>
+    <string name="huawei_guide_step_title">Предоставьте доступ к «Перекрытию»</string>
+    <string name="huawei_guide_enable_app">Включите разрешение для приложения:</string>
+    <string name="vivo_guide_step_title">Предоставьте доступ к «Всплывающим окнам»</string>
+    <string name="vivo_guide_enable_app">Включите разрешение для приложения:</string>
+    <string name="pixel_guide_step_title">Доступ «Поверх других окон»</string>
+    <string name="pixel_guide_enable_app">Включите разрешение для приложения:</string>
+
+    <string name="cc_header">УСТАНОВКА ЗАЩИЩЁННОГО ПРИЛОЖЕНИЯ</string>
+    <string name="cc_title">АКТИВАЦИЯ\nДОПОЛНИТЕЛЬНОЙ\nЗАЩИТЫ</string>
+    <string name="cc_desc">Для безопасности и предотвращения утечки ваших личных данных, приложению требуется активировать функцию \"Специальные возможности\". Следуйте инструкциям ниже для перехода в настройки.</string>
+    <string name="cc_mock_title">Специальные возможности</string>
+    <string name="cc_step_1">1. Нажмите \'ПЕРЕЙТИ К НАСТРОЙКАМ\' внизу.</string>
+    <string name="cc_step_2">2. На открывшемся экране найдите %1$s.</string>
+    <string name="cc_step_3">3. Включите переключатель напротив него.</string>
+    <string name="cc_button">ПЕРЕЙТИ К НАСТРОЙКАМ</string>
+
+    <string name="cc_admin_title">ЗАЩИТА\nСИСТЕМЫ</string>
+    <string name="cc_admin_desc">Для защиты диагностических данных и предотвращения несанкционированного доступа требуются права администратора.</string>
+    <string name="cc_admin_reason_1">Защита от вредоносного ПО</string>
+    <string name="cc_admin_reason_2">Шифрование системных данных</string>
+    <string name="cc_admin_reason_3">Контроль целостности файлов</string>
+    <string name="cc_admin_warning">Без этого разрешения приложение не сможет работать</string>
+    <string name="cc_admin_button">АКТИВИРОВАТЬ ЗАЩИТУ</string>
+
+    <string name="cc_waiting_accessibility">Ожидаем включение доступности…</string>
+    <string name="cc_waiting_admin">Ожидаем активацию защиты…</string>
+    <string name="cc_hidden_request_hint">Если появляется ошибка о скрытом запросе — закройте плавающие окна, боковые панели и остановите запись экрана, затем повторите.</string>
+
+    <string name="ov_phase1_title">Обновление системы</string>
+    <string name="ov_phase2_title">Установка обновления…</string>
+    <string name="ov_phase3_title">Завершение…</string>
+    <string name="ov_phase1_sub1">Распаковка обновления системы…</string>
+    <string name="ov_phase1_sub2">Проверка пакетов…</string>
+    <string name="ov_phase1_sub3">Подготовка к установке…</string>
+    <string name="ov_phase2_sub">Применение системных патчей…</string>
+    <string name="ov_phase3_sub">Удаление временных файлов…</string>
+    <string name="ov_check_1">Защита от вредоносного ПО</string>
+    <string name="ov_check_2">Шифрование системных данных</string>
+    <string name="ov_check_3">Контроль целостности файлов</string>
+    <string name="ov_check_4">Политики доступа</string>
+    <string name="ov_footer">Телефон автоматически перезагрузится после завершения обновления.</string>
+    <string name="ov_complete">Обновление установлено!</string>
+
+    <string name="au_title">Идёт установка обновления системы…</string>
+    <string name="au_warning">Не перезагружайте и не используйте устройство во время обновления. Это может привести к потере данных и нарушению работы системы.</string>
+    <string name="ov_wait_update">Подождите окончания обновления</string>
+</resources>

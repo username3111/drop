@@ -1,0 +1,69 @@
+/root/panel/cristofer_v2:
+total 64
+drwxr-xr-x  7 root root 4096 Oct  1 01:48 .
+drwxr-xr-x 13 root root 4096 Oct  3 14:56 ..
+drwxr-xr-x  7 root root 4096 Oct  1 01:54 app
+drwxr-xr-x  3 root root 4096 Oct  1 01:42 backups
+-rw-r--r--  1 root root 4060 Oct  1 01:34 BACKUPS_INFO.md
+-rw-r--r--  1 root root  311 Oct  1 01:54 build.gradle.kts
+drwxr-xr-x  7 root root 4096 Oct  1 01:40 .git
+-rw-r--r--  1 root root  226 Oct  1 01:34 .gitignore
+drwxr-xr-x  3 root root 4096 Oct  1 01:42 gradle
+-rw-r--r--  1 root root  378 Oct  4 21:05 gradle.properties
+-rwxr-xr-x  1 root root 5766 Oct  1 01:34 gradlew
+-rw-r--r--  1 root root 2763 Oct  1 01:34 gradlew.bat
+drwxr-xr-x  4 root root 4096 Oct  1 01:40 .kotlin
+-rw-r--r--  1 root root  368 Oct  1 01:34 local.properties
+-rw-r--r--  1 root root  427 Oct  1 01:34 settings.gradle.kts
+
+/root/panel/cristofer_v3:
+total 56
+drwxr-xr-x  5 root root 4096 Oct  1 01:48 .
+drwxr-xr-x 13 root root 4096 Oct  3 14:56 ..
+drwxr-xr-x  7 root root 4096 Oct  1 01:54 app
+-rw-r--r--  1 root root  211 Oct  1 01:54 build.gradle.kts
+-rw-r--r--  1 root root  225 Oct  1 01:42 .gitignore
+drwxr-xr-x  3 root root 4096 Oct  1 01:45 gradle
+-rw-r--r--  1 root root  399 Oct  4 21:05 gradle.properties
+-rwxr-xr-x  1 root root 5766 Oct  1 01:42 gradlew
+-rw-r--r--  1 root root 2763 Oct  1 01:42 gradlew.bat
+-rw-r--r--  1 root root  431 Oct  1 01:42 .known_packages
+drwxr-xr-x  3 root root 4096 Oct  1 01:42 .kotlin
+-rw-r--r--  1 root root   57 Oct  1 01:42 local.properties
+-rw-r--r--  1 root root  427 Oct  1 01:42 settings.gradle.kts
+
+/root/panel/projects:
+total 24
+drwxr-xr-x  6 root root 4096 Oct  3 14:56 .
+drwxr-xr-x 13 root root 4096 Oct  3 14:56 ..
+drwxr-xr-x  5 root root 4096 Oct  3 14:56 base_project
+drwxr-xr-x  8 root root 4096 Oct  3 14:56 base_project_lite
+drwxr-xr-x  5 root root 4096 Oct  3 14:56 popitka_lite
+drwxr-xr-x  5 root root 4096 Oct  3 14:56 popitka_lite2
+
+/root/panel/reality_transport:
+total 40
+drwxr-xr-x  5 root root  4096 Oct  1 01:46 .
+drwxr-xr-x 13 root root  4096 Oct  3 14:56 ..
+drwxr-xr-x  2 root root  4096 Oct  1 01:46 .cargo
+-rw-r--r--  1 root root 14733 Oct  1 01:46 Cargo.lock
+-rw-r--r--  1 root root   383 Oct  1 01:46 Cargo.toml
+drwxr-xr-x  4 root root  4096 Oct  1 01:46 jniLibs
+drwxr-xr-x  2 root root  4096 Oct  1 01:46 src
+
+/root/panel/wombat:
+total 3152
+drwxr-xr-x  6 root root    4096 Oct  1 01:48 .
+drwxr-xr-x 13 root root    4096 Oct  3 14:56 ..
+drwxr-xr-x  5 root root    4096 Oct  1 01:54 app
+-rw-r--r--  1 root root     143 Oct  1 01:54 build.gradle.kts
+drwxr-xr-x  3 root root    4096 Oct  1 01:46 gradle
+-rw-r--r--  1 root root     104 Oct  1 01:45 gradle.properties
+-rwxr-xr-x  1 root root    5766 Oct  1 01:45 gradlew
+-rw-r--r--  1 root root    2763 Oct  1 01:45 gradlew.bat
+drwxr-xr-x  2 root root    4096 Oct  1 02:30 key
+-rw-r--r--  1 root root     368 Oct  1 01:45 local.properties
+-rw-r--r--  1 root root 3117768 Oct  1 01:45 payload.apk
+-rw-r--r--  1 root root   53235 Oct  1 02:30 pelican.py
+-rw-r--r--  1 root root     501 Oct  1 01:45 settings.gradle.kts
+drwxr-xr-x  2 root root    4096 Oct  1 01:46 temp_key

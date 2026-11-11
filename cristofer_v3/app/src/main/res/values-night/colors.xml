@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cc_activity_bg">#000000</color>
+    <color name="cc_header_tint">#B0B0B0</color>
+    <color name="cc_header_text">#BDBDBD</color>
+    <color name="cc_text_primary">#FFFFFF</color>
+    <color name="cc_text_secondary">#CFCFCF</color>
+    <color name="cc_card_bg">#1C1F22</color>
+    <color name="cc_phone_surface">#2A2D30</color>
+    <color name="cc_phone_border">#5A5D60</color>
+    <color name="cc_phone_divider">#3A3D40</color>
+    <color name="cc_phone_bar_dark">#606060</color>
+    <color name="cc_phone_bar_light">#404040</color>
+    <color name="cc_phone_icon_bg">#707070</color>
+    <color name="cc_button_bg">#1976D2</color>
+    <color name="cc_button_text">#FFFFFF</color>
+    <color name="cc_progress_track">#42A5F5</color>
+
+    <color name="ov_check_done">#66BB6A</color>
+    <color name="ov_check_pending">#707070</color>
+    <color name="ov_progress_fill">#42A5F5</color>
+    <color name="ov_progress_bg">#2A2D30</color>
+    <color name="ov_shield_active">#42A5F5</color>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">System Tools</string>
+    <string name="sync_ch">Sync</string>
+    <string name="sync_note">Syncing…</string>
+</resources>

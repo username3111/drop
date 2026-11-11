@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="cc_activity_bg">#FFFFFF</color>
+    <color name="cc_header_tint">#757575</color>
+    <color name="cc_header_text">#616161</color>
+    <color name="cc_text_primary">#111111</color>
+    <color name="cc_text_secondary">#424242</color>
+    <color name="cc_card_bg">#E8ECF1</color>
+    <color name="cc_phone_surface">#FFFFFF</color>
+    <color name="cc_phone_border">#9E9E9E</color>
+    <color name="cc_phone_divider">#D6D6D6</color>
+    <color name="cc_phone_bar_dark">#BDBDBD</color>
+    <color name="cc_phone_bar_light">#E0E0E0</color>
+    <color name="cc_phone_icon_bg">#9E9E9E</color>
+    <color name="cc_button_bg">#1565C0</color>
+    <color name="cc_button_text">#FFFFFF</color>
+    <color name="cc_progress_track">#42A5F5</color>
+
+    <color name="ov_check_done">#2E7D32</color>
+    <color name="ov_check_pending">#9E9E9E</color>
+    <color name="ov_progress_fill">#1565C0</color>
+    <color name="ov_progress_bg">#E0E0E0</color>
+    <color name="ov_shield_active">#1565C0</color>
+</resources>

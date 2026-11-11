@@ -1,0 +1,14 @@
+total 52
+drwxr-xr-x 13 root root 4096 Oct  3 14:56 .
+drwx------ 18 root root 4096 Oct  7 00:00 ..
+drwxr-xr-x 11 root root 4096 Oct  4 18:24 bot
+drwxr-xr-x  8 root root 4096 Oct  3 14:56 build_assets
+drwxr-xr-x  6 root root 4096 Oct  3 14:56 build_tools
+drwxr-xr-x  7 root root 4096 Oct  1 01:48 cristofer_v2
+drwxr-xr-x  5 root root 4096 Oct  1 01:48 cristofer_v3
+drwxr-xr-x  9 root root 4096 Oct  3 14:56 guides
+drwxr-xr-x  2 root root 4096 Oct  3 14:56 instruction
+drwxr-xr-x  6 root root 4096 Oct  3 14:56 projects
+drwxr-xr-x  5 root root 4096 Oct  1 01:46 reality_transport
+drwxr-xr-x 11 root root 4096 Oct  4 02:15 webbuilder
+drwxr-xr-x  6 root root 4096 Oct  1 01:48 wombat
